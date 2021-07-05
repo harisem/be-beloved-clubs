@@ -12,21 +12,36 @@
 
             <li class="menu-header">Menu</li>
 
-            @can('is-admin')
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-id-card-alt"></i> <span>Customers</span></a></li>
+            @can('read catalogs')
+                <li><a class="nav-link" href="credits.html"><i class="fas fa-layer-group"></i> <span>Catalogs</span></a></li>
             @endcan
 
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-file-invoice"></i> <span>Invoices</span></a></li>
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-receipt"></i> <span>Orders</span></a></li>
-
-            @can('is-marketing')
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-folder"></i> <span>Posts</span></a></li>
+            @can('read customers')
+                <li><a class="nav-link" href="credits.html"><i class="fas fa-id-card-alt"></i> <span>Customers</span></a></li>
             @endcan
 
-            <li><a class="nav-link" href="credits.html"><i class="fas fa-archive"></i> <span>Products</span></a></li>
+            @can('read users')
+                <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user-tie"></i> <span>Employees</span></a></li>
+            @endcan
 
-            @can('is-owner')
-            <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user-tie"></i> <span>Employees</span></a></li>
+            @can('read invoices')
+                <li><a class="nav-link" href="credits.html"><i class="fas fa-file-invoice"></i> <span>Invoices</span></a></li>
+            @endcan
+
+            @can('read orders')
+                <li><a class="nav-link" href="credits.html"><i class="fas fa-receipt"></i> <span>Orders</span></a></li>
+            @endcan
+
+            @can('read products')
+                <li><a class="nav-link" href="credits.html"><i class="fas fa-tshirt"></i> <span>Products</span></a></li>
+            @endcan
+
+            @can('read sliders')
+                <li><a class="nav-link" href="credits.html"><i class="fas fa-columns"></i> <span>Sliders</span></a></li>
+            @endcan
+
+            @can('read warehouses')
+                <li><a class="nav-link" href="credits.html"><i class="fas fa-cubes"></i> <span>Warehouses</span></a></li>
             @endcan
             
             <li class="menu-header">User</li>

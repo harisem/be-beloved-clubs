@@ -1,3 +1,3 @@
 <div class="login-brand">
-    <img src="{{ asset('img/bc-logo.PNG') }}" alt="logo" width="100" class="">
+    <img src="{{ asset('img/logo.png') }}" alt="logo" width="100" class="">
 </div>

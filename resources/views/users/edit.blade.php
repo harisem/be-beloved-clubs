@@ -41,8 +41,19 @@
                                 <div class="selectgroup selectgroup-pills">
                                     @foreach ($roles as $role)
                                         <label class="selectgroup-item">
-                                            <input type="checkbox" name="roles[]" id="{{ $role->name }}" value="{{ $role->id }}" class="selectgroup-input" @if(in_array($role->id, $user->roles->pluck('id')->toArray())) checked @endif>
+                                            <input type="checkbox" name="roles" id="{{ $role->name }}" value="{{ $role->id }}" class="selectgroup-input" @if(in_array($role->id, $user->roles->pluck('id')->toArray())) checked @endif>
                                             <span class="selectgroup-button">{{ $role->name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Permissions</label>
+                                <div class="selectgroup selectgroup-pills">
+                                    @foreach ($permissions as $permission)
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="permissions[]" id="{{ $permission->name }}" value="{{ $permission->id }}" class="selectgroup-input" @if(in_array($permission->id, $user->getPermissionsViaRoles()->pluck('id')->toArray())) checked @endif>
+                                            <span class="selectgroup-button">{{ $permission->name }}</span>
                                         </label>
                                     @endforeach
                                 </div>
