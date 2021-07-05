@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+    
+    // Dashboard
+    Route::get('/', function () {
+        return view('index');
+    })->name('dashboard');
+
+    // Employees Management
+    Route::middleware('role:owner')->group(function () {
+        Route::resource('/users', 'UsersController');
+    });
 });
