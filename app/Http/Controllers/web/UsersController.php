@@ -105,7 +105,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->except(['_token', 'roles']));
-        $user->givePermissionTo($request->permissions);
+        $user->syncPermissions($request->permissions);
         $request->session()->flash('success', 'You have updated the user.');
 
         return redirect(route('users.index'));
