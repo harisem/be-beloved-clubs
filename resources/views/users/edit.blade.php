@@ -52,7 +52,7 @@
                                 <div class="selectgroup selectgroup-pills">
                                     @foreach ($permissions as $permission)
                                         <label class="selectgroup-item">
-                                            <input type="checkbox" name="permissions[]" id="{{ $permission->name }}" value="{{ $permission->id }}" class="selectgroup-input" @if(in_array($permission->id, $user->getPermissionsViaRoles()->pluck('id')->toArray())) checked @endif>
+                                            <input type="checkbox" name="permissions[]" id="{{ $permission->name }}" value="{{ $permission->id }}" class="selectgroup-input" @if(in_array($permission->id, $user->permissions->pluck('id')->toArray())) checked @endif>
                                             <span class="selectgroup-button">{{ $permission->name }}</span>
                                         </label>
                                     @endforeach
