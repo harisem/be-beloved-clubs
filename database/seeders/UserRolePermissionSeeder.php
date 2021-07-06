@@ -62,29 +62,6 @@ class UserRolePermissionSeeder extends Seeder
         $marketing = Role::create(['name' => 'marketing']);
         $production = Role::create(['name' => 'production']);
 
-        $administrator->givePermissionTo('read customers', 'update customers', 'delete customers');
-        $administrator->givePermissionTo('read invoices', 'update invoices', 'delete invoices');
-        $administrator->givePermissionTo('read orders', 'update orders', 'delete orders');
-        $administrator->givePermissionTo('read catalogs');
-        $administrator->givePermissionTo('read products');
-        $administrator->givePermissionTo('read warehouses');
-        $administrator->givePermissionTo('create sliders', 'read sliders', 'update sliders', 'delete sliders');
-
-        $marketing->givePermissionTo('read customers');
-        $marketing->givePermissionTo('read invoices', 'update invoices');
-        $marketing->givePermissionTo('read orders', 'update orders');
-        $marketing->givePermissionTo('create catalogs', 'read catalogs', 'update catalogs', 'delete catalogs');
-        $marketing->givePermissionTo('create products', 'read products', 'update products', 'delete products');
-        $marketing->givePermissionTo('read warehouses');
-        $marketing->givePermissionTo('create sliders', 'read sliders', 'update sliders', 'delete sliders');
-
-        $production->givePermissionTo('read invoices');
-        $production->givePermissionTo('read orders');
-        $production->givePermissionTo('read catalogs');
-        $production->givePermissionTo('create products', 'read products', 'update products', 'delete products');
-        $production->givePermissionTo('create warehouses', 'read warehouses', 'update warehouses', 'delete warehouses');
-        $production->givePermissionTo('read sliders');
-
         $user1 = User::create([
             'name' => 'Anangga',
             'email' => 'anangga@mail.com',
@@ -99,12 +76,28 @@ class UserRolePermissionSeeder extends Seeder
         ]);
         $user2->assignRole($administrator);
 
+        $user2->givePermissionTo('read customers', 'update customers', 'delete customers');
+        $user2->givePermissionTo('read invoices', 'update invoices', 'delete invoices');
+        $user2->givePermissionTo('read orders', 'update orders', 'delete orders');
+        $user2->givePermissionTo('read catalogs');
+        $user2->givePermissionTo('read products');
+        $user2->givePermissionTo('read warehouses');
+        $user2->givePermissionTo('create sliders', 'read sliders', 'update sliders', 'delete sliders');
+
         $user3 = User::create([
             'name' => 'Haris',
             'email' => 'haris@mail.com',
             'password' => Hash::make('haris123')
         ]);
         $user3->assignRole($marketing);
+
+        $user3->givePermissionTo('read customers');
+        $user3->givePermissionTo('read invoices', 'update invoices');
+        $user3->givePermissionTo('read orders', 'update orders');
+        $user3->givePermissionTo('create catalogs', 'read catalogs', 'update catalogs', 'delete catalogs');
+        $user3->givePermissionTo('create products', 'read products', 'update products', 'delete products');
+        $user3->givePermissionTo('read warehouses');
+        $user3->givePermissionTo('create sliders', 'read sliders', 'update sliders', 'delete sliders');
 
         $user4 = User::create([
             'name' => 'Fauzan',
@@ -113,6 +106,13 @@ class UserRolePermissionSeeder extends Seeder
         ]);
         $user4->assignRole($production);
 
+        $user4->givePermissionTo('read invoices');
+        $user4->givePermissionTo('read orders');
+        $user4->givePermissionTo('read catalogs');
+        $user4->givePermissionTo('create products', 'read products', 'update products', 'delete products');
+        $user4->givePermissionTo('create warehouses', 'read warehouses', 'update warehouses', 'delete warehouses');
+        $user4->givePermissionTo('read sliders');
+
         $user5 = User::create([
             'name' => 'Shidqi',
             'email' => 'shidqi@mail.com',
@@ -120,11 +120,26 @@ class UserRolePermissionSeeder extends Seeder
         ]);
         $user5->assignRole($marketing);
 
+        $user5->givePermissionTo('read customers');
+        $user5->givePermissionTo('read invoices', 'update invoices');
+        $user5->givePermissionTo('read orders', 'update orders');
+        $user5->givePermissionTo('create catalogs', 'read catalogs', 'update catalogs', 'delete catalogs');
+        $user5->givePermissionTo('create products', 'read products', 'update products', 'delete products');
+        $user5->givePermissionTo('read warehouses');
+        $user5->givePermissionTo('create sliders', 'read sliders', 'update sliders', 'delete sliders');
+
         $user6 = User::create([
             'name' => 'Calfin',
             'email' => 'calfin@mail.com',
             'password' => Hash::make('calfin123')
         ]);
         $user6->assignRole($production);
+
+        $user6->givePermissionTo('read invoices');
+        $user6->givePermissionTo('read orders');
+        $user6->givePermissionTo('read catalogs');
+        $user6->givePermissionTo('create products', 'read products', 'update products', 'delete products');
+        $user6->givePermissionTo('create warehouses', 'read warehouses', 'update warehouses', 'delete warehouses');
+        $user6->givePermissionTo('read sliders');
     }
 }
