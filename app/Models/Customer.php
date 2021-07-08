@@ -30,4 +30,20 @@ class Customer extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * Define relationship to Cart's Model
+     */
+    public function carts()
+    {
+        return $this->hasMany('App\Models\Cart');
+    }
+
+    /**
+     * Define relationship to Invoice's Model
+     */
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\Invoice');
+    }
 }
