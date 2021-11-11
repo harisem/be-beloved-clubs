@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
@@ -41,10 +42,10 @@ class WarehouseController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'weight' => 'required|numeric|min:1|max:3',
-            'production' => 'numeric|min:1|max:3',
-            'ready' => 'numeric|min:1|max:3',
-            'delivered' => 'numeric|min:1|max:3',
+            'weight' => 'required|numeric',
+            'production' => 'nullable|numeric',
+            'ready' => 'nullable|numeric',
+            'delivered' => 'nullable|numeric',
         ]);
 
         $product = Warehouse::create([
@@ -81,10 +82,12 @@ class WarehouseController extends Controller
      */
     public function edit($id)
     {
-        $product = Warehouse::find($id);
+        $warehouse = Warehouse::find($id);
+
         return view('warehouses.edit', [
-            'product' => $product
+            'warehouse' => $warehouse
         ]);
+
     }
 
     /**

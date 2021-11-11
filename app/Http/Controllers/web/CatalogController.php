@@ -32,7 +32,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
+        $products = Product::where('catalog_id', null)->get();
         return view('catalogs.create', [
             'products' => $products
         ]);
@@ -49,34 +49,39 @@ class CatalogController extends Controller
         $this->validate($request, [
             'name' => 'required|string|unique:catalogs|max:64',
             'content' => 'required',
-            'image' => 'required|image|mimes:jpeg,jpg,png|max:2000',
+            'img' => 'required|image|mimes:jpeg,jpg,png|max:2000',
         ]);
 
-        $image = $request->file('image');
-        $image->storeAs('public/catalogs', $image->hashName());
+        $img = $request->file('img');
+        $img->storeAs('public/catalogs', $img->hashName());
 
         $catalog = Catalog::create([
             'name' => $request->name,
             'content' => $request->content,
-            'image' => $image->hashName(),
-            'slug' => Str::slug($request->name)
+            'image' => $img->hashName(),
+            'slug' => Str::slug($request->name, '-')
         ]);
 
         if ($catalog) {
 
-            if ($request->hasFile('images')) {
-                $images = $request->file('images');
-                foreach ($images as $image) {
-                    $image->storeAs('public/photoshoots', $image->hashName());
+            if ($request->hasFile('photoshoots')) {
+                $photoshoots = $request->file('photoshoots');
+                $paths = [];
+                foreach ($photoshoots as $photoshoot) {
+                    $fileName = $photoshoot->hashName();
+                    $paths[] = $photoshoot->storeAs('public/photoshoots', $fileName);
                     $catalog->photoshoots()->create([
-                        'image' => $image->hashName()
+                        'image' => $fileName
                     ]);
                 }
             }
 
-            $product = Product::find($request->productId);
-            $product->catalogs()->associate($catalog);
-            // $product->save();
+            $products = $request->products;
+            foreach ($products as $productId) {
+                $product = Product::find($productId);
+                $product->catalogs()->associate($catalog);
+                $product->save();
+            }
 
             return redirect()->route('catalogs.index')->with(['success', 'You have been created a new catalog.']);
         } else {
@@ -104,8 +109,12 @@ class CatalogController extends Controller
     public function edit($id)
     {
         $catalog = Catalog::with(['photoshoots', 'products'])->find($id);
+        // $products = Product::where('catalog_id', null)->get();
+        $products = Product::all();
+        // dd($catalog);
         return view('catalogs.edit', [
-            'catalog' => $catalog
+            'catalog' => $catalog,
+            'products' => $products
         ]);
     }
 
@@ -118,7 +127,155 @@ class CatalogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $catalog = Catalog::with(['photoshoots', 'products'])->where('id', $id)->first();
+
+        foreach ($catalog->photoshoots as $key => $value) {
+            dd($value->image);
+        }
+        dd($catalog->photoshoots->image);
+
+        $this->validate($request, [
+            'products' => 'required',
+            'name' => 'required|string',
+            'content' => 'required',
+        ]);
+
+        if ($request->img == null) {
+            // There is no image/jumbotron to update
+            if ($request->photoshoots == null) {
+                // Neither the image/jumbotron nor the photoshoots are going to update
+                $updated = $catalog->update([
+                    'name' => $request->name,
+                    'content' => $request->content,
+                    'slug' => Str::slug($request->name, '-')
+                ]);
+
+                if ($updated) {
+                    $products = $request->products;
+                    foreach ($products as $productId) {
+                        $product = Product::find($productId);
+                        $product->catalogs()->associate($catalog);
+                        $product->save();
+                    }
+
+                    return redirect()->route('catalogs.index')->with(['success', 'You have been successfully edited the catalog.']);
+                } else {
+                    return redirect()->route('catalogs.index')->with(['error', 'Some error occurred']);
+                }
+
+            } else {
+                // There is no image/jumbotron, but photoshoots to update
+                $photoshoots = $catalog->photoshoots;
+                foreach ($photoshoots as $photoshoot ) {
+                    $fileName = Str::substr($photoshoot->image, 42);
+                    Storage::disk('local')->delete('public/photoshoots/' . $fileName);
+                    $photoshoot->delete();
+                }
+
+                $updated = $catalog->update([
+                    'name' => $request->name,
+                    'content' => $request->content,
+                    'slug' => Str::slug($request->name, '-')
+                ]);
+
+                if ($updated) {
+                    $products = $request->products;
+                    foreach ($products as $productId) {
+                        $product = Product::find($productId);
+                        $product->catalogs()->associate($catalog);
+                        $product->save();
+                    }
+                    
+                    $files = $request->file('photoshoots');
+                    foreach ($files as $file) {
+                        $fileName = $file->hashName();
+                        $file->storeAs('public/photoshoots', $fileName);
+                        $catalog->photoshoots()->create([
+                            'image' => $fileName
+                        ]);
+                    }
+
+                    return redirect()->route('catalogs.index')->with(['success', 'You have been successfully edited the catalog.']);
+                } else {
+                    return redirect()->route('catalogs.index')->with(['error', 'Some error occurred']);
+                }
+            }
+        } else {
+            // There is image/jumbotron to update
+            if ($request->photoshoots == null) {
+                // There is image/jumbotron, but not the photoshoots to update
+                Storage::disk('local')->delete('public/catalogs/' . $catalog->image);
+
+                $file = $request->file('img');
+                $fileName = $file->hashName();
+                $file->storeAs('public/catalogs', $fileName);
+
+                $updated = $catalog->update([
+                    'name' => $request->name,
+                    'content' => $request->content,
+                    'image' => $fileName,
+                    'slug' => Str::slug($request->name, '-')
+                ]);
+
+                if ($updated) {
+                    $products = $request->products;
+                    foreach ($products as $productId) {
+                        $product = Product::find($productId);
+                        $product->catalogs()->associate($catalog);
+                        $product->save();
+                    }
+
+                    return redirect()->route('catalogs.index')->with(['success', 'You have been successfully edited the catalog.']);
+                } else {
+                    return redirect()->route('catalogs.index')->with(['error', 'Some error occurred']);
+                }
+
+            } else {
+                // Both image/jumbotron and photoshoots are going update
+                Storage::disk('local')->delete('public/catalogs/' . $catalog->image);
+
+                $photoshoots = $catalog->photoshoots;
+                foreach ($photoshoots as $photoshoot ) {
+                    $fileName = Str::substr($photoshoot->image, 42);
+                    Storage::disk('local')->delete('public/photoshoots/' . $fileName);
+                    $photoshoot->delete();
+                }
+
+                $img = $request->file('img');
+                $imgName = $img->hashName();
+
+                $img->storeAs('public/catalogs', $imgName);
+                $updated = $catalog->update([
+                    'name' => $request->name,
+                    'content' => $request->content,
+                    'image' => $imgName,
+                    'slug' => Str::slug($request->name, '-')
+                ]);
+
+                if ($updated) {
+                    $products = $request->products;
+                    foreach ($products as $productId) {
+                        $product = Product::find($productId);
+                        $product->catalogs()->associate($catalog);
+                        $product->save();
+                    }
+                    
+                    $files = $request->file('photoshoots');
+                    foreach ($files as $file) {
+                        $fileName = $file->hashName();
+                        $file->storeAs('public/photoshoots', $fileName);
+                        $catalog->photoshoots()->create([
+                            'image' => $fileName
+                        ]);
+                    }
+
+                    return redirect()->route('catalogs.index')->with(['success', 'You have been successfully edited the catalog.']);
+                } else {
+                    return redirect()->route('catalogs.index')->with(['error', 'Some error occurred']);
+                }
+            }
+        }
+
     }
 
     /**
@@ -129,11 +286,20 @@ class CatalogController extends Controller
      */
     public function destroy($id)
     {
-        $catalog = Catalog::with('photoshoot:image')->findOrFail($id);
+        $catalog = Catalog::with(['photoshoots', 'products'])->findOrFail($id);
+        // dd($catalog->photoshoots);
+        $products = $catalog->products;
+
         $images = $catalog->photoshoots;
         foreach ($images as $image) {
-            Storage::disk('local')->delete('public/photoshoots/' . $image);
+            Storage::disk('local')->delete('public/photoshoots/' . $image->image);
         }
+        foreach ($products as $product) {
+            $product->catalogs()->dissociate($catalog);
+            $product->save();
+        }
+
+        Storage::disk('local')->delete('public/catalogs/' . $catalog->image);
         $deleted = Catalog::destroy($id);
 
         if ($deleted) {

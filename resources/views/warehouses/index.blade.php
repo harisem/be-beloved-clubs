@@ -21,7 +21,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Product</th>
-                                    <th>Weight</th>
                                     <th>Production</th>
                                     <th>Ready</th>
                                     <th>Delivered</th>
@@ -31,10 +30,16 @@
                                 <tr>
                                     <td>{{ $warehouses->firstItem() + $loop->iteration - 1 }}</td>
                                     <td>{{ $warehouse->name }}</td>
-                                    <td>{{ $warehouse->weight }}</td>
-                                    <td></td>
+                                    <td>{{ $warehouse->production ? $warehouse->production : 0 }}</td>
+                                    <td>{{ $warehouse->ready ? $warehouse->ready : 0 }}</td>
+                                    <td>{{ $warehouse->delivered ? $warehouse->delivered : 0 }}</td>
                                     <td>
-                                        <a href="{{ route('warehouses.edit', $warehouse->id) }}" class="btn btn-sm btn-secondary" role="button">Detail</a>
+                                        @can('update warehouses')
+                                            <a href="{{ route('warehouses.edit', $warehouse->id) }}" class="btn btn-sm btn-outline-primary" role="button">Detail</a>
+                                        @endcan
+                                        @can('update products')
+                                            <a href="{{ route('products.create', $warehouse->id) }}" class="btn btn-sm btn-outline-primary" role="button">Add to Store</a>
+                                        @endcan
                                         <button type="button" href="{{ route('warehouses.destroy', $warehouse->id) }}" class="btn btn-sm btn-warning" onclick="event.preventDefault(); document.getElementById('delete-product-{{ $warehouse->id }}').submit();">
                                             Delete
                                         </button>

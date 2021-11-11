@@ -26,9 +26,9 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-6">
-                                    <label for="email">Email Address</label>
-                                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror">
-                                    @error('email')
+                                    <label for="weight">Weight (gr)</label>
+                                    <input type="number" name="weight" id="weight" value="{{ old('weight') }}" class="form-control @error('weight') is-invalid @enderror">
+                                    @error('weight')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
                                         </div>
@@ -36,19 +36,28 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-6">
-                                    <label for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
-                                    @error('password')
+                                <div class="form-group col-4">
+                                    <label for="production">Production</label>
+                                    <input type="number" name="production" id="production" value="{{ old('production') }}" class="form-control @error('production') is-invalid @enderror">
+                                    @error('production')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-6">
-                                    <label for="password_confirmation">Confirm Password</label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror">
-                                    @error('password_confirmation')
+                                <div class="form-group col-4">
+                                    <label for="ready">Ready</label>
+                                    <input type="number" name="ready" id="ready" value="{{ old('ready') }}" class="form-control @error('ready') is-invalid @enderror">
+                                    @error('ready')
+                                        <div class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="delivered">Delivered</label>
+                                    <input type="number" name="delivered" id="delivered" value="{{ old('delivered') }}" class="form-control @error('delivered') is-invalid @enderror">
+                                    @error('delivered')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
                                         </div>

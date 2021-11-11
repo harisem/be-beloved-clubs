@@ -18,11 +18,12 @@ class Product extends Model
         'catalog_id',
         'name',
         'slug',
-        'frontImage',
-        'backImage',
+        'frontImg',
+        'backImg',
         'content',
         'weight',
         'price',
+        'stock',
         'discount',
     ];
 
@@ -42,7 +43,7 @@ class Product extends Model
      */
     public function catalogs()
     {
-        return $this->belongsTo('App\Models\Catalog');
+        return $this->belongsTo('App\Models\Catalog', 'catalog_id');
     }
 
     /**

@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="section-header">
-        <h1>Warehouse Management</h1>
+        <h1>Catalog Management</h1>
         <div class="section-header-breadcrumb">
-            <a href="{{ route('warehouses.create') }}" class="btn btn-primary">Add New <i class="fas fa-plus"></i></a>
+            <a href="{{ route('catalogs.create') }}" class="btn btn-primary">Add New <i class="fas fa-plus"></i></a>
         </div>
     </div>
 
@@ -13,32 +13,26 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Warehouses</h4>
+                        <h4>Catalogs</h4>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-striped table-md">
                                 <tr>
                                     <th>#</th>
-                                    <th>Product</th>
-                                    <th>Weight</th>
-                                    <th>Production</th>
-                                    <th>Ready</th>
-                                    <th>Delivered</th>
+                                    <th>Name</th>
                                     <th>Action</th>
                                 </tr>
-                                @foreach ($warehouses as $warehouse)
+                                @foreach ($catalogs as $catalog)
                                 <tr>
-                                    <td>{{ $warehouses->firstItem() + $loop->iteration - 1 }}</td>
-                                    <td>{{ $warehouse->name }}</td>
-                                    <td>{{ $warehouse->weight }}</td>
-                                    <td></td>
+                                    <td>{{ $catalogs->firstItem() + $loop->iteration - 1 }}</td>
+                                    <td>{{ $catalog->name }}</td>
                                     <td>
-                                        <a href="{{ route('warehouses.edit', $warehouse->id) }}" class="btn btn-sm btn-secondary" role="button">Detail</a>
-                                        <button type="button" href="{{ route('warehouses.destroy', $warehouse->id) }}" class="btn btn-sm btn-warning" onclick="event.preventDefault(); document.getElementById('delete-product-{{ $warehouse->id }}').submit();">
+                                        <a href="{{ route('catalogs.edit', $catalog->id) }}" class="btn btn-sm btn-secondary" role="button">Detail</a>
+                                        <button type="button" href="{{ route('catalogs.destroy', $catalog->id) }}" class="btn btn-sm btn-warning" onclick="event.preventDefault(); document.getElementById('delete-product-{{ $catalog->id }}').submit();">
                                             Delete
                                         </button>
-                                        <form action="{{ route('warehouses.destroy', $warehouse->id) }}" method="POST" id="delete-product-{{ $warehouse->id }}" style="display: none">
+                                        <form action="{{ route('catalogs.destroy', $catalog->id) }}" method="POST" id="delete-product-{{ $catalog->id }}" style="display: none">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -51,7 +45,7 @@
                     <div class="card-footer text-right text-white-all">
                         <nav class="d-inline-block">
                             <ul class="pagination mb-0">
-                                {{ $warehouses->links() }}
+                                {{ $catalogs->links() }}
                             </ul>
                         </nav>
                     </div>

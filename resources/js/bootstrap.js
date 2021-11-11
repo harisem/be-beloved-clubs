@@ -27,13 +27,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-import "./scripts";
-import "./stisla";
-import "./pages/index";
 
 // Plugin
 import "chart.js/dist/Chart";
 import "chocolat/dist/js/jquery.chocolat";
 import "jquery-sparkline/jquery.sparkline";
 import "owl.carousel/dist/owl.carousel";
-import "summernote/dist/summernote-bs4";
+// import "summernote/dist/summernote-bs4";
+
+import "./scripts";
+import "./stisla";
+import "./pages/index";

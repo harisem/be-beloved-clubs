@@ -27,7 +27,7 @@ class Cart extends Model
      */
     public function customers()
     {
-        return $this->belongsTo('App\Models\Customer');
+        return $this->belongsTo('App\Models\Customer', 'customer_id');
     }
 
     /**
@@ -35,6 +35,6 @@ class Cart extends Model
      */
     public function products()
     {
-        return $this->belongsTo('App\Models\Product');
+        return $this->belongsTo('App\Models\Product', 'product_id');
     }
 }

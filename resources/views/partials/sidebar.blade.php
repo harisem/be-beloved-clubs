@@ -13,7 +13,7 @@
             <li class="menu-header">Menu</li>
 
             @can('read catalogs')
-                <li><a class="nav-link" href="credits.html"><i class="fas fa-layer-group"></i> <span>Catalogs</span></a></li>
+                <li class="{{ request()->routeIs('catalogs.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('catalogs.index') }}"><i class="fas fa-layer-group"></i> <span>Catalogs</span></a></li>
             @endcan
 
             @can('read customers')
@@ -33,7 +33,7 @@
             @endcan
 
             @can('read products')
-                <li><a class="nav-link" href="credits.html"><i class="fas fa-tshirt"></i> <span>Products</span></a></li>
+                <li class="{{ request()->routeIs('products.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('products.index') }}"><i class="fas fa-tshirt"></i> <span>Products</span></a></li>
             @endcan
 
             @can('read sliders')
@@ -41,7 +41,7 @@
             @endcan
 
             @can('read warehouses')
-                <li><a class="nav-link" href="credits.html"><i class="fas fa-cubes"></i> <span>Warehouses</span></a></li>
+                <li class="{{ request()->routeIs('warehouses.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('warehouses.index') }}"><i class="fas fa-cubes"></i> <span>Warehouses</span></a></li>
             @endcan
             
             <li class="menu-header">User</li>

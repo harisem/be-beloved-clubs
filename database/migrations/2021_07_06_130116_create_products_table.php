@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->text('content');
             $table->bigInteger('weight');
             $table->bigInteger('price');
+            $table->bigInteger('stock');
             $table->integer('discount')->nullable();
             $table->timestamps();
 
