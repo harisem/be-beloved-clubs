@@ -59,7 +59,6 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::prefix('sliders')->name('sliders.')->group(function () {
         Route::get('/', 'SliderController@index')->name('index')->middleware('permission:read sliders');
         Route::post('/', 'SliderController@store')->name('store')->middleware('permission:create sliders');
-        Route::get('{slider}/create', 'SliderController@create')->name('create')->middleware('permission:create sliders');
         Route::get('{slider}/edit', 'SliderController@edit')->name('edit')->middleware('permission:update sliders');
         Route::delete('{slider}', 'SliderController@destroy')->name('destroy')->middleware('permission:delete sliders');
         Route::match(['put', 'patch'], '{slider}', 'SliderController@update')->name('update')->middleware('permission:update sliders');
