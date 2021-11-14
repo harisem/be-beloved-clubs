@@ -4,7 +4,7 @@
     <div class="section-header">
         <h1>Products Management</h1>
         <div class="section-header-breadcrumb">
-            <a href="{{ route('warehouses.index') }}" class="btn btn-primary">Add New <i class="fas fa-plus"></i></a>
+            <a href="{{ route('products.create') }}" class="btn btn-primary">Add New <i class="fas fa-plus"></i></a>
         </div>
     </div>
 

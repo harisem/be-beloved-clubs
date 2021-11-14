@@ -18,8 +18,7 @@ class Product extends Model
         'catalog_id',
         'name',
         'slug',
-        'frontImg',
-        'backImg',
+        'image',
         'content',
         'weight',
         'price',
@@ -60,5 +59,13 @@ class Product extends Model
     public function orders()
     {
         return $this->hasMany('App\Models\Order');
+    }
+
+    /**
+     * Define relationship to Warehouse's Model
+     */
+    public function warehouses()
+    {
+        return $this->hasMany('App\Models\Warehouse');
     }
 }

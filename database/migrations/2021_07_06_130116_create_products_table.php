@@ -18,8 +18,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('catalog_id')->nullable();
             $table->string('name');
             $table->string('slug');
-            $table->string('frontImg');
-            $table->string('backImg');
+            $table->string('image');
             $table->text('content');
             $table->bigInteger('weight');
             $table->bigInteger('price');

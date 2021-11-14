@@ -79,14 +79,9 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <label for="frontImg">Front Image</label>
-                                    <input type="file" name="frontImg" id="frontImg" class="form-control" onchange="readURLFront(this)">
-                                    <div class="image-area mt-4"><img id="imageResultFront" src="{{ asset('storage/products/' . $product->frontImg) }}" alt="{{ $product->frontImg }}" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="backImg">Back Image</label>
-                                    <input type="file" name="backImg" id="backImg" class="form-control" onchange="readURLBack(this)">
-                                    <div class="image-area mt-4"><img id="imageResultBack" src="{{ asset('storage/products/' . $product->backImg) }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                    <label for="image">Front Image</label>
+                                    <input type="file" name="image" id="image" class="form-control" onchange="readURLImage(this)">
+                                    <div class="image-area mt-4"><img id="imageResultFront" src="{{ asset($product->image) }}" alt="{{ $product->image }}" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                 </div>
                             </div>
                             <div class="card-footer text-right mr-n3">
@@ -103,24 +98,12 @@
 
 @push('scripts')
     <script type="text/javascript">
-        function readURLFront(input) {
+        function readURLImage(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
                     $('#imageResultFront')
-                        .attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        
-        function readURLBack(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#imageResultBack')
                         .attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);

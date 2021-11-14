@@ -15,21 +15,10 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="row" style="display: none">
-                                <div class="form-group col-6">
-                                    <label for="ready">Ready</label>
-                                    <input type="text" name="ready" id="ready" value="{{ $product->ready }}" class="form-control @error('ready') is-invalid @enderror" readonly>
-                                    @error('ready')
-                                        <div class="invalid-feedback" role="alert">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
                             <div class="row">
-                                <div class="form-group col-6">
+                                <div class="form-group col-4">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" id="name" value="{{ $product->name }}" class="form-control @error('name') is-invalid @enderror" readonly>
+                                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror">
                                     @error('name')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
@@ -37,8 +26,21 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-6">
+                                    <label>Product</label>
+                                    <select id="products" name="products[]" class="form-control select2 @error('products') is-invalid @enderror" multiple="">
+                                        @foreach ($warehouses as $w)
+                                            <option value="{{ $w->id }}">{{ $w->name . ' - ' . $w->color }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('products')
+                                        <div class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-2">
                                     <label for="weight">Weight</label>
-                                    <input type="number" name="weight" id="weight" value="{{ $product->weight }}" class="form-control @error('weight') is-invalid @enderror" readonly>
+                                    <input type="number" name="weight" id="weight" class="form-control @error('weight') is-invalid @enderror">
                                     @error('weight')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
@@ -70,20 +72,25 @@
                                 <div class="form-group col-12">
                                     <label for="content">Descriptions</label>
                                     <div class="col-12">
-                                        <textarea class="summernote-simple" name="content" id="content"></textarea>
+                                        <textarea name="content" id="content" class="summernote-simple @error('content') is-invalid @enderror"></textarea>
                                     </div>
+                                    @error('content')
+                                        <div class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <label for="frontImg">Front Image</label>
-                                    <input type="file" name="frontImg" id="frontImg" class="form-control" onchange="readURLFront(this)">
-                                    <div class="image-area mt-4"><img id="imageResultFront" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="backImg">Back Image</label>
-                                    <input type="file" name="backImg" id="backImg" class="form-control" onchange="readURLBack(this)">
-                                    <div class="image-area mt-4"><img id="imageResultBack" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                    <label for="image">Image</label>
+                                    <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" onchange="readURLImage(this)">
+                                    @error('image')
+                                        <div class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                    <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                 </div>
                             </div>
                             <div class="card-footer text-right mr-n3">
@@ -100,24 +107,12 @@
 
 @push('scripts')
     <script type="text/javascript">
-        function readURLFront(input) {
+        function readURLImage(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#imageResultFront')
-                        .attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        
-        function readURLBack(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#imageResultBack')
+                    $('#imageResult')
                         .attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);

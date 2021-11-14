@@ -21,18 +21,18 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Product</th>
-                                    <th>Production</th>
+                                    <th>Size</th>
+                                    <th>Color</th>
                                     <th>Ready</th>
-                                    <th>Delivered</th>
                                     <th>Action</th>
                                 </tr>
                                 @foreach ($warehouses as $warehouse)
                                 <tr>
                                     <td>{{ $warehouses->firstItem() + $loop->iteration - 1 }}</td>
                                     <td>{{ $warehouse->name }}</td>
-                                    <td>{{ $warehouse->production ? $warehouse->production : 0 }}</td>
+                                    <td>{{ $warehouse->size }}</td>
+                                    <td>{{ $warehouse->color }}</td>
                                     <td>{{ $warehouse->ready ? $warehouse->ready : 0 }}</td>
-                                    <td>{{ $warehouse->delivered ? $warehouse->delivered : 0 }}</td>
                                     <td>
                                         @can('update warehouses')
                                             <a href="{{ route('warehouses.edit', $warehouse->id) }}" class="btn btn-sm btn-outline-primary" role="button">Detail</a>

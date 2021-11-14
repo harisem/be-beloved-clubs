@@ -29,22 +29,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $warehouse = Warehouse::find($id);
-        $product = Product::where('name', $warehouse->name)->first();
+        $warehouses = Warehouse::all();
 
-        if ($product) {
-            return view('products.edit', [
-                'product' => $product
-            ]);
-        } else {
-            return view('products.create', [
-                'product' => $warehouse
-            ]);
-        }
-
-        // return view('products.create');
+        return view('products.create', [
+            'warehouses' => $warehouses
+        ]);
     }
 
     /**
@@ -55,41 +46,44 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $this->validate($request, [
             'name' => 'required|string|unique:products|max:64',
-            'frontImg' => 'required|image|mimes:jpeg,jpg,png|max:2000',
-            'backImg' => 'required|image|mimes:jpeg,jpg,png|max:2000',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:2000',
+            'products' => 'required',
             'content' => 'required',
             'weight' => 'required',
             'price' => 'required',
             'discount' => 'required',
-            'ready' => 'required',
         ]);
 
-        $image1 = $request->file('frontImg');
-        $image2 = $request->file('backImg');
+        $image = $request->file('image');
+        $imgName = $image->hashName();
 
-        $imgName1 = $image1->hashName();
-        $imgName2 = $image2->hashName();
-        
-        
+        $stock = 0;
+        foreach ($request->products as $product) {
+            $warehouse = Warehouse::find($product);
+            $stock += $warehouse->ready;
+        };
 
         $product = Product::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name, '-'),
-            'frontImg' => $imgName1,
-            'backImg' => $imgName2,
+            'image' => $imgName,
             'content' => $request->content,
             'weight' => $request->weight,
             'price' => $request->price,
-            'stock' => $request->ready,
+            'stock' => $stock,
             'discount' => $request->discount,
         ]);
 
         if ($product) {
-            $image1->storeAs('public/products', $imgName1);
-            $image2->storeAs('public/products', $imgName2);
+            foreach ($request->products as $productIds) {
+                $warehouse = Warehouse::findOrFail($productIds);
+                $warehouse->products()->associate($product);
+                $warehouse->save();
+            };
+
+            $image->storeAs('public/products', $imgName);
             return redirect()->route('products.index')->with(['success', 'You have been added new product.']);
         } else {
             return redirect()->route('products.index')->with(['error', 'Some error occurred']);
@@ -115,23 +109,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('warehouses')->where('id', $id)->first();
+        // dd($product);
 
-        if ($product) {
-            return view('products.edit', [
-                'product' => $product
-            ]);
-        } else {
-            $warehouse = Warehouse::find($id);
-            return view('products.create', [
-                'product' => $warehouse
-            ]);
-        }
-        
-        // $product = Warehouse::find($id);
-        // return view('products.edit', [
-        //     'product' => $product
-        // ]);
+        return view('products.edit', [
+            'product' => $product
+        ]);
     }
 
     /**

@@ -37,7 +37,7 @@
             @endcan
 
             @can('read sliders')
-                <li class="{{ request()->routeIs('catalogs.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sliders.index') }}"><i class="fas fa-columns"></i> <span>Sliders</span></a></li>
+                <li class="{{ request()->routeIs('sliders.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sliders.index') }}"><i class="fas fa-columns"></i> <span>Sliders</span></a></li>
             @endcan
 
             @can('read warehouses')

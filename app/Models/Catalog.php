@@ -47,4 +47,19 @@ class Catalog extends Model
     {
         return $this->hasMany('App\Models\Product');
     }
+
+    /**
+     * Get all of the warehouses for the catalogs.
+     */
+    public function warehouses()
+    {
+        return $this->hasManyThrough(
+            'App\Models\Warehouse',
+            'App\Models\Product',
+            'catalog_id',
+            'product_id',
+            'id',
+            'id'
+        );
+    }
 }

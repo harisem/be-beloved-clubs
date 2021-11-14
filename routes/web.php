@@ -49,7 +49,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::prefix('products')->name('products.')->group(function () {
         Route::get('/', 'ProductController@index')->name('index')->middleware('permission:read products');
         Route::post('/', 'ProductController@store')->name('store')->middleware('permission:create products');
-        Route::get('{product}/create', 'ProductController@create')->name('create')->middleware('permission:create products');
+        Route::get('create', 'ProductController@create')->name('create')->middleware('permission:create products');
         Route::get('{product}/edit', 'ProductController@edit')->name('edit')->middleware('permission:update products');
         Route::delete('{product}', 'ProductController@destroy')->name('destroy')->middleware('permission:delete products');
         Route::match(['put', 'patch'], '{product}', 'ProductController@update')->name('update')->middleware('permission:update products');

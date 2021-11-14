@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class WarehouseController extends Controller
 {
@@ -40,23 +41,41 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->size);
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|string|max:64',
+            'size' => 'required',
+            'color' => 'required',
+            'frontImg' => 'required|image|mimes:jpeg,jpg,png|max:2000',
+            'backImg' => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'weight' => 'required|numeric',
-            'production' => 'nullable|numeric',
             'ready' => 'nullable|numeric',
-            'delivered' => 'nullable|numeric',
         ]);
 
-        $product = Warehouse::create([
-            'name' => $request->name,
-            'weight' => $request->weight,
-            'production' => $request->production,
-            'ready' => $request->ready,
-            'delivered' => $request->delivered,
-        ]);
+        $image1 = $request->file('frontImg');
+        $imgName1 = $image1->hashName();
+        $image2 = $request->file('backImg');
+        $imgName2 = $image2->hashName();
 
-        if ($product) {
+        $sizes = $request->size;
+        $stock = explode(',', $request->stock);
+
+        foreach ($sizes as $key => $size) {
+            $warehouse = Warehouse::create([
+                'name' => $request->name . ' - ' . Str::of($size)->upper(),
+                'size' => Str::of($size)->upper(),
+                'color' => $request->color,
+                'frontImg' => $imgName1,
+                'backImg' => $imgName2,
+                'weight' => $request->weight,
+                'ready' => $stock[$key],
+            ]);
+        }
+
+
+        if ($warehouse) {
+            $image1->storeAs('public/warehouses', $imgName1);
+            $image2->storeAs('public/warehouses', $imgName2);
             return redirect()->route('warehouses.index')->with(['success', 'You have been addded a new product']);
         } else {
             return redirect()->route('warehouses.index')->with(['error', 'Some error occurred']);
