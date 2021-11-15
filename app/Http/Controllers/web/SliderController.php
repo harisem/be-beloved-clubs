@@ -7,6 +7,7 @@ use App\Models\Slider;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SliderController extends Controller
 {
@@ -32,19 +33,24 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'title' => 'required|string',
+            'bg' => 'required|string',
+            'description' => 'required',
             'image' => 'required|image|mimes:jpeg,jpg,png|max:2000',
-            'link' => 'required'
         ]);
 
         $image = $request->file('image');
-        $image->storeAs('public/sliders', $image->hashName());
-
+        $imageName = $image->hashName();
+        
         $slider = Slider::create([
-            'image' => $image->hashName(),
-            'link' => $request->link,
+            'image' => $imageName,
+            'title' => $request->title,
+            'description' => $request->description,
+            'bg' => Str::substr($request->bg, 1),
         ]);
-
+        
         if ($slider) {
+            $image->storeAs('public/sliders', $imageName);
             return redirect()->route('sliders.index')->with([
                 'success' => 'Sliders have been saved.'
             ]);
