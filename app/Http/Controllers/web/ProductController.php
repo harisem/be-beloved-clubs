@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(10);
+        $products = Product::latest()->with('warehouses')->paginate(10);
+        // dd($products);
         return view('products.index', [
             'products' => $products
         ]);
@@ -31,7 +32,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $warehouses = Warehouse::all();
+        $warehouses = Warehouse::where('product_id', null)->get();
 
         return view('products.create', [
             'warehouses' => $warehouses

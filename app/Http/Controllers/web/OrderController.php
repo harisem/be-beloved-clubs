@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('updated_at', 'desc')->get();
+        // $orders = Order::with('warehouses')->orderBy('updated_at', 'asc')->paginate(10);
+        $orders = Invoice::with(['customers', 'orders.warehouses'])->orderBy('status', 'asc')->paginate(10);
+        // dd($orders[0]->orders->sum('quantity'));
         return view('orders.index', [
             'orders' => $orders
         ]);
@@ -50,7 +53,12 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        // $order = Order::with(['warehouses', 'invoices'])->where('id', $id)->first();
+        $order = Invoice::with(['customers', 'orders.warehouses'])->where('id', $id)->first();
+        // dd($order);
+        return view('orders.edit', [
+            'order' => $order
+        ]);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="section-header">
-        <h1>Warehouse Management</h1>
+        <h1>Order Management</h1>
         <div class="section-header-breadcrumb">
             <a href="{{ route('warehouses.create') }}" class="btn btn-primary">Add New <i class="fas fa-plus"></i></a>
         </div>
@@ -20,25 +20,41 @@
                             <table class="table table-striped table-md">
                                 <tr>
                                     <th>#</th>
-                                    <th>Product</th>
-                                    <th>Weight</th>
-                                    <th>Production</th>
-                                    <th>Ready</th>
-                                    <th>Delivered</th>
+                                    <th>Invoice</th>
+                                    <th>Customer's Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
-                                @foreach ($warehouses as $warehouse)
+                                @foreach ($orders as $order)
                                 <tr>
-                                    <td>{{ $warehouses->firstItem() + $loop->iteration - 1 }}</td>
-                                    <td>{{ $warehouse->name }}</td>
-                                    <td>{{ $warehouse->weight }}</td>
-                                    <td></td>
+                                    <td>{{ $orders->firstItem() + $loop->iteration - 1 }}</td>
+                                    <td>{{ $order->invoice }}</td>
+                                    <td>{{ $order->name }}</td>
+                                    <td>{{ $order->orders->sum('quantity') }}</td>
+                                    <td>{{ $order->grand_total }}</td>
                                     <td>
-                                        <a href="{{ route('warehouses.edit', $warehouse->id) }}" class="btn btn-sm btn-secondary" role="button">Detail</a>
-                                        <button type="button" href="{{ route('warehouses.destroy', $warehouse->id) }}" class="btn btn-sm btn-warning" onclick="event.preventDefault(); document.getElementById('delete-product-{{ $warehouse->id }}').submit();">
+                                        @switch($order->status)
+                                            @case('success')
+                                                <span class="badge rounded-pill bg-success">{{ $order->status }}</span>
+                                                @break
+                                            @case('failed')
+                                                <span class="badge rounded-pill bg-danger">{{ $order->status }}</span>
+                                                @break
+                                            @case('expired')
+                                                <span class="badge rounded-pill bg-warning">{{ $order->status }}</span>
+                                                @break
+                                            @default
+                                                <span class="badge rounded-pill bg-info">{{ $order->status }}</span>
+                                        @endswitch
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-secondary" role="button">Detail</a>
+                                        <button type="button" href="{{ route('warehouses.destroy', $order->id) }}" class="btn btn-sm btn-warning" onclick="event.preventDefault(); document.getElementById('delete-product-{{ $order->id }}').submit();">
                                             Delete
                                         </button>
-                                        <form action="{{ route('warehouses.destroy', $warehouse->id) }}" method="POST" id="delete-product-{{ $warehouse->id }}" style="display: none">
+                                        <form action="{{ route('warehouses.destroy', $order->id) }}" method="POST" id="delete-product-{{ $order->id }}" style="display: none">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -51,7 +67,7 @@
                     <div class="card-footer text-right text-white-all">
                         <nav class="d-inline-block">
                             <ul class="pagination mb-0">
-                                {{ $warehouses->links() }}
+                                {{ $orders->links() }}
                             </ul>
                         </nav>
                     </div>

@@ -22,6 +22,8 @@ class CreateWarehousesTable extends Migration
             $table->string('frontImg');
             $table->string('backImg');
             $table->bigInteger('weight');
+            $table->bigInteger('price')->nullable();
+            $table->integer('discount')->nullable();
             $table->bigInteger('ready')->nullable();
             $table->timestamps();
 

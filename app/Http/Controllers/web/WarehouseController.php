@@ -49,7 +49,7 @@ class WarehouseController extends Controller
             'frontImg' => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'backImg' => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'weight' => 'required|numeric',
-            'ready' => 'nullable|numeric',
+            'stock' => 'nullable|numeric',
         ]);
 
         $image1 = $request->file('frontImg');
@@ -62,7 +62,7 @@ class WarehouseController extends Controller
 
         foreach ($sizes as $key => $size) {
             $warehouse = Warehouse::create([
-                'name' => $request->name . ' - ' . Str::of($size)->upper(),
+                'name' => $request->name . ' - ' . Str::ucfirst($request->color) . ' - ' . Str::of($size)->upper(),
                 'size' => Str::of($size)->upper(),
                 'color' => $request->color,
                 'frontImg' => $imgName1,

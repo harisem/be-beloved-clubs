@@ -20,10 +20,7 @@ class Product extends Model
         'slug',
         'image',
         'content',
-        'weight',
-        'price',
         'stock',
-        'discount',
     ];
 
     /**
@@ -43,22 +40,6 @@ class Product extends Model
     public function catalogs()
     {
         return $this->belongsTo('App\Models\Catalog', 'catalog_id');
-    }
-
-    /**
-     * Define relationship to Cart's Model
-     */
-    public function carts()
-    {
-        return $this->hasMany('App\Models\Cart');
-    }
-
-    /**
-     * Define relationship to Order's Model
-     */
-    public function orders()
-    {
-        return $this->hasMany('App\Models\Order');
     }
 
     /**

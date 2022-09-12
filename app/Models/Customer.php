@@ -17,7 +17,6 @@ class Customer extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
         'email',
         'password'
     ];
@@ -27,7 +26,7 @@ class Customer extends Authenticatable
      *
      * @var array
      */
-    protected $visible = ['name', 'email', 'email_verified_at', 'created_at', 'updated_at'];
+    protected $visible = ['email', 'email_verified_at', 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -38,6 +37,21 @@ class Customer extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    // protected $with = ['profiles'];
+
+    /**
+     * Define relationship to Profile's Model
+     */
+    public function profiles()
+    {
+        return $this->hasOne('App\Models\Profile');
+    }
 
     /**
      * Define relationship to Cart's Model

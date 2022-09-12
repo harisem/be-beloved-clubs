@@ -44,6 +44,6 @@ class Invoice extends Model
      */
     public function customers()
     {
-        return $this->belongsTo('App\Models\Customer');
+        return $this->belongsTo('App\Models\Customer', 'customer_id');
     }
 }

@@ -1,0 +1,35 @@
+product_id,name,size,color,frontImg,backImg,weight,price,discount,ready
+1,No Tomorrow - White - S,S,white,FUrQyBVFfgM4uSXBKoBBo9CiCQUhGKljlnrghC63.png,dHHJOJQvlkFXDkidCsFD7jbq8dd6rOUa7rsHyO7j.png,65,165000,0,10
+1,No Tomorrow - White - M,M,white,FUrQyBVFfgM4uSXBKoBBo9CiCQUhGKljlnrghC63.png,dHHJOJQvlkFXDkidCsFD7jbq8dd6rOUa7rsHyO7j.png,65,165000,0,9
+1,No Tomorrow - White - L,L,white,FUrQyBVFfgM4uSXBKoBBo9CiCQUhGKljlnrghC63.png,dHHJOJQvlkFXDkidCsFD7jbq8dd6rOUa7rsHyO7j.png,65,165000,0,8
+7,Dead Inside - Black - S,S,black,ApbqcVVd7IiiHjzc1QFU4wzeuM8ogSYAzqViwGus.png,8ONjyxLuj0IKm3XosKTvhdGvkFAznYSRXtSBVgmx.png,65,145000,0,10
+7,Dead Inside - Black - M,M,black,ApbqcVVd7IiiHjzc1QFU4wzeuM8ogSYAzqViwGus.png,8ONjyxLuj0IKm3XosKTvhdGvkFAznYSRXtSBVgmx.png,65,145000,0,9
+7,Dead Inside - Black - L,L,black,ApbqcVVd7IiiHjzc1QFU4wzeuM8ogSYAzqViwGus.png,8ONjyxLuj0IKm3XosKTvhdGvkFAznYSRXtSBVgmx.png,65,145000,0,8
+2,Emptiness - White - S,S,white,wfYseF4YQL8Q14OHMBeruHssjW4Lr5kkYH0DsHBF.png,HfOMNQzBdoatNMPPnbKQtcQwRa1N2Y9ypAFoqcu4.png,65,145000,0,10
+2,Emptiness - White - M,M,white,wfYseF4YQL8Q14OHMBeruHssjW4Lr5kkYH0DsHBF.png,HfOMNQzBdoatNMPPnbKQtcQwRa1N2Y9ypAFoqcu4.png,65,145000,0,9
+2,Emptiness - White - L,L,white,wfYseF4YQL8Q14OHMBeruHssjW4Lr5kkYH0DsHBF.png,HfOMNQzBdoatNMPPnbKQtcQwRa1N2Y9ypAFoqcu4.png,65,145000,0,8
+2,Emptiness - White - XL,XL,white,wfYseF4YQL8Q14OHMBeruHssjW4Lr5kkYH0DsHBF.png,HfOMNQzBdoatNMPPnbKQtcQwRa1N2Y9ypAFoqcu4.png,65,145000,0,7
+8,Annihilation - Black - S,S,black,1wpz7Jmooo1kQvIXvob4gv9pFJ4HcBGa24rgqbJ0.png,e1pGaaZiODCNQD531sGrQOAZluS4us5hKJqbZFNd.png,100,225000,10,10
+8,Annihilation - Black - M,M,black,1wpz7Jmooo1kQvIXvob4gv9pFJ4HcBGa24rgqbJ0.png,e1pGaaZiODCNQD531sGrQOAZluS4us5hKJqbZFNd.png,100,225000,10,9
+8,Annihilation - Black - L,L,black,1wpz7Jmooo1kQvIXvob4gv9pFJ4HcBGa24rgqbJ0.png,e1pGaaZiODCNQD531sGrQOAZluS4us5hKJqbZFNd.png,100,225000,10,8
+8,Annihilation - Black - XL,XL,black,1wpz7Jmooo1kQvIXvob4gv9pFJ4HcBGa24rgqbJ0.png,e1pGaaZiODCNQD531sGrQOAZluS4us5hKJqbZFNd.png,100,225000,10,7
+6,The Flowers Never Bloom - Black - S,S,black,qrl9v6WB1Jqm2YYAym17IVt0MLzFj2ZSSjJIeTbW.png,ESxneOTbKB3CoE43ZpYOIKNPnaKftA9WNtjFbU01.png,100,225000,10,11
+6,The Flowers Never Bloom - Black - M,M,black,qrl9v6WB1Jqm2YYAym17IVt0MLzFj2ZSSjJIeTbW.png,ESxneOTbKB3CoE43ZpYOIKNPnaKftA9WNtjFbU01.png,100,225000,10,10
+6,The Flowers Never Bloom - Black - L,L,black,qrl9v6WB1Jqm2YYAym17IVt0MLzFj2ZSSjJIeTbW.png,ESxneOTbKB3CoE43ZpYOIKNPnaKftA9WNtjFbU01.png,100,225000,10,9
+6,The Flowers Never Bloom - Black - XL,XL,black,qrl9v6WB1Jqm2YYAym17IVt0MLzFj2ZSSjJIeTbW.png,ESxneOTbKB3CoE43ZpYOIKNPnaKftA9WNtjFbU01.png,100,225000,10,8
+5,Blurry Tee - Pink - S,S,pink,bWTmt1lcibOPyCrMptRPZHRie0qkYB1wkheSbts5.png,oXPzPVq4Rnh6ub0PtBQaimelda6vrf8MZVvDgVci.png,65,150000,10,12
+5,Blurry Tee - Pink - M,M,pink,bWTmt1lcibOPyCrMptRPZHRie0qkYB1wkheSbts5.png,oXPzPVq4Rnh6ub0PtBQaimelda6vrf8MZVvDgVci.png,65,150000,10,11
+5,Blurry Tee - Pink - L,L,pink,bWTmt1lcibOPyCrMptRPZHRie0qkYB1wkheSbts5.png,oXPzPVq4Rnh6ub0PtBQaimelda6vrf8MZVvDgVci.png,65,150000,10,9
+5,Blurry Tee - Pink - XL,XL,pink,bWTmt1lcibOPyCrMptRPZHRie0qkYB1wkheSbts5.png,oXPzPVq4Rnh6ub0PtBQaimelda6vrf8MZVvDgVci.png,65,150000,10,8
+5,Blurry Tee - White - S,S,white,wfNlTAW0Y2BEk0PSoNb03fDaM0NFCY2V5Parcq34.png,9sRWMwSy2tcKZn0dNYRY8A5v6t5Oz2T25gkCSOFf.png,65,145000,5,10
+5,Blurry Tee - White - M,M,white,wfNlTAW0Y2BEk0PSoNb03fDaM0NFCY2V5Parcq34.png,9sRWMwSy2tcKZn0dNYRY8A5v6t5Oz2T25gkCSOFf.png,65,145000,5,7
+5,Blurry Tee - White - L,L,white,wfNlTAW0Y2BEk0PSoNb03fDaM0NFCY2V5Parcq34.png,9sRWMwSy2tcKZn0dNYRY8A5v6t5Oz2T25gkCSOFf.png,65,145000,5,9
+5,Blurry Tee - White - XL,XL,white,wfNlTAW0Y2BEk0PSoNb03fDaM0NFCY2V5Parcq34.png,9sRWMwSy2tcKZn0dNYRY8A5v6t5Oz2T25gkCSOFf.png,65,145000,5,8
+4,War Love Find Peace - White - S,S,white,UXCQmyB6InhKuK3uv8HsukvBCiYuNOjhIYt3AlYJ.png,842BktpLycPXxhbznbaEQ58Ioma6ffasdv764JJW.png,65,140000,0,9
+4,War Love Find Peace - White - M,M,white,UXCQmyB6InhKuK3uv8HsukvBCiYuNOjhIYt3AlYJ.png,842BktpLycPXxhbznbaEQ58Ioma6ffasdv764JJW.png,65,140000,0,10
+4,War Love Find Peace - White - L,L,white,UXCQmyB6InhKuK3uv8HsukvBCiYuNOjhIYt3AlYJ.png,842BktpLycPXxhbznbaEQ58Ioma6ffasdv764JJW.png,65,140000,0,6
+4,War Love Find Peace - White - XL,XL,white,UXCQmyB6InhKuK3uv8HsukvBCiYuNOjhIYt3AlYJ.png,842BktpLycPXxhbznbaEQ58Ioma6ffasdv764JJW.png,65,140000,0,8
+3,Conflicated Feelings - Black - S,S,black,Pgl8zcMmWTnOCuYfPviPDlFf2Qq3RnMeU2kEwNan.png,MLopxv2DwBLOgu6RBzSXKfyBL4V5FAyd17qkdb2T.png,65,140000,0,10
+3,Conflicated Feelings - Black - M,M,black,Pgl8zcMmWTnOCuYfPviPDlFf2Qq3RnMeU2kEwNan.png,MLopxv2DwBLOgu6RBzSXKfyBL4V5FAyd17qkdb2T.png,65,140000,0,9
+3,Conflicated Feelings - Black - L,L,black,Pgl8zcMmWTnOCuYfPviPDlFf2Qq3RnMeU2kEwNan.png,MLopxv2DwBLOgu6RBzSXKfyBL4V5FAyd17qkdb2T.png,65,140000,0,8
+3,Conflicated Feelings - Black - XL,XL,black,Pgl8zcMmWTnOCuYfPviPDlFf2Qq3RnMeU2kEwNan.png,MLopxv2DwBLOgu6RBzSXKfyBL4V5FAyd17qkdb2T.png,65,140000,0,7

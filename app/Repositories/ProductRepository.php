@@ -9,7 +9,7 @@ class ProductRepository implements ProductInterface
 {
     public function getProducts($query)
     {
-        $products = Product::latest()->when($query, function ($products) use ($query) {
+        $products = Product::with('warehouses')->latest()->when($query, function ($products) use ($query) {
             $products = $products->where('name', 'like', '%' . $query . '%');
         })->paginate(10);
 
@@ -24,7 +24,7 @@ class ProductRepository implements ProductInterface
 
     public function getProductBySlug($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::with('warehouses')->where('slug', $slug)->first();
         return $product;
     }
 }

@@ -16,7 +16,7 @@ class Order extends Model
      */
     protected $fillable = [
         'invoice_id',
-        'product_id',
+        'warehouse_id',
         'image',
         'quantity',
         'price',
@@ -28,14 +28,14 @@ class Order extends Model
      */
     public function invoices()
     {
-        return $this->belongsTo('App\Models\Invoice');
+        return $this->belongsTo('App\Models\Invoice', 'invoice_id');
     }
 
     /**
-     * Define inverse relationship to Product's Model
+     * Define inverse relationship to Warehouse's Model
      */
-    public function products()
+    public function warehouses()
     {
-        return $this->belongsTo('App\Models\Product');
+        return $this->belongsTo('App\Models\Warehouse', 'warehouse_id');
     }
 }

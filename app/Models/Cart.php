@@ -16,7 +16,7 @@ class Cart extends Model
      */
     protected $fillable = [
         'customer_id',
-        'product_id',
+        'warehouse_id',
         'quantity',
         'price',
         'weight',
@@ -31,10 +31,10 @@ class Cart extends Model
     }
 
     /**
-     * Define inverse relationship to Product's Model
+     * Define inverse relationship to Warehouse's Model
      */
-    public function products()
+    public function warehouses()
     {
-        return $this->belongsTo('App\Models\Product', 'product_id');
+        return $this->belongsTo('App\Models\Warehouse', 'warehouse_id');
     }
 }

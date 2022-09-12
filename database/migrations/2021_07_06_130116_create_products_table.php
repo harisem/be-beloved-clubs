@@ -20,10 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->string('image');
             $table->text('content');
-            $table->bigInteger('weight');
-            $table->bigInteger('price');
             $table->bigInteger('stock');
-            $table->integer('discount')->nullable();
             $table->timestamps();
 
             $table->foreign('catalog_id')->references('id')->on('catalogs')->onUpdate('cascade');

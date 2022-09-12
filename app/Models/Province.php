@@ -18,4 +18,12 @@ class Province extends Model
         'province_id',
         'name',
     ];
+
+    /**
+     * Define relationship to Profile's Model
+     */
+    public function profiles()
+    {
+        return $this->hasMany('App\Models\Profile', 'province_id', 'id');
+    }
 }

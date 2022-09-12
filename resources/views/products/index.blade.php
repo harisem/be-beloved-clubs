@@ -21,16 +21,16 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Product</th>
-                                    <th>Weight</th>
-                                    <th>Price</th>
+                                    <th>Weight (gr)</th>
+                                    <th>Stock Available</th>
                                     <th>Action</th>
                                 </tr>
                                 @foreach ($products as $product)
                                 <tr>
                                     <td>{{ $products->firstItem() + $loop->iteration - 1 }}</td>
                                     <td>{{ $product->name }}</td>
-                                    <td>{{ $product->weight }}</td>
-                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->warehouses[0]->weight }}</td>
+                                    <td>{{ $product->warehouses[0]->ready }}</td>
                                     <td>
                                         <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-secondary" role="button">Detail</a>
                                         <button type="button" href="{{ route('products.destroy', $product->id) }}" class="btn btn-sm btn-warning" onclick="event.preventDefault(); document.getElementById('delete-product-{{ $product->id }}').submit();">

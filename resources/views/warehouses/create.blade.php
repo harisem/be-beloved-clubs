@@ -47,28 +47,48 @@
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label for="frontImg">Front Image</label>
-                                    <input type="file" name="frontImg" id="frontImg" class="form-control" onchange="readURLFront(this)">
+                                    <input type="file" name="frontImg" id="frontImg" class="form-control @error('frontImg') is-invalid @enderror" onchange="readURLFront(this)">
+                                    @error('frontImg')
+                                        <div class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     <div class="image-area mt-4"><img id="imageResultFront" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="backImg">Back Image</label>
-                                    <input type="file" name="backImg" id="backImg" class="form-control" onchange="readURLBack(this)">
+                                    <input type="file" name="backImg" id="backImg" class="form-control @error('backImg') is-invalid @enderror" onchange="readURLBack(this)">
+                                    @error('backImg')
+                                        <div class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     <div class="image-area mt-4"><img id="imageResultBack" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label>Size</label>
-                                    <select id="size" name="size[]" class="form-control select2" multiple="">
+                                    <select id="size" name="size[]" class="form-control select2 @error('size') is-invalid @enderror" multiple="">
                                         <option value="s">S</option>
                                         <option value="m">M</option>
                                         <option value="l">L</option>
                                         <option value="xl">XL</option>
                                     </select>
+                                    @error('size')
+                                        <div class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-6">
                                     <label>Stock</label>
-                                    <input type="text" name="stock" id="stock" class="form-control" data-role="tagsinput">
+                                    <input type="text" name="stock" id="stock" class="form-control @error('stock') is-invalid @enderror" data-role="tagsinput">
+                                    @error('stock')
+                                        <div class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="card-footer text-right mr-n3">

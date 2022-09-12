@@ -16,12 +16,15 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('invoice_id');
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('warehouse_id');
             $table->string('image');
             $table->integer('quantity');
             $table->integer('price');
             $table->enum('status', array('pending', 'paid', 'cancelled', 'done'));
             $table->timestamps();
+
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onUpdate('cascade');
+            $table->foreign('warehouse_id')-> references('id')->on('warehouses');
         });
     }
 

@@ -29,6 +29,12 @@ Route::prefix('/auth')->group(function () {
     });
 });
 
+// Profile
+Route::prefix('/profile')->name('profile.')->group(function () {
+    Route::get('', 'ProfileController@index')->name('index');
+    Route::post('/update', 'ProfileController@update')->name('update');
+});
+
 // Cart
 Route::prefix('/cart')->name('cart.')->group(function () {
     Route::get('', 'CartController@index')->name('index');
@@ -58,6 +64,12 @@ Route::prefix('/order')->name('order.')->group(function () {
     Route::get('/{snap_token?}', 'OrderController@show')->name('show');
 });
 
+// Invoice
+Route::prefix('/invoice')->name('invoice.')->group(function () {
+    Route::get('', 'InvoiceController@index')->name('index');
+    Route::get('/{snap_token?}', 'InvoiceController@show')->name('show');
+});
+
 // Product
 Route::prefix('/product')->name('product.')->group(function () {
     Route::get('', 'ProductController@index')->name('index');
@@ -74,4 +86,10 @@ Route::prefix('/ongkir')->name('ongkir.')->group(function () {
 // Slider
 Route::prefix('/slider')->name('slider.')->group(function () {
     Route::get('', 'SliderController@index')->name('index');
+});
+
+// Warehouse
+Route::prefix('/warehouse')->name('warehouse.')->group(function () {
+    Route::get('', 'WarehouseController@index')->name('index');
+    Route::get('/{slug?}', 'WarehouseController@show')->name('show');
 });

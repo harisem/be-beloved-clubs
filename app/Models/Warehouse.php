@@ -22,8 +22,26 @@ class Warehouse extends Model
         'frontImg',
         'backImg',
         'weight',
+        'price',
+        'discount',
         'ready',
     ];
+
+    /**
+     * Define relationship to Cart's Model
+     */
+    public function carts()
+    {
+        return $this->hasMany('App\Models\Cart');
+    }
+
+    /**
+     * Define relationship to Order's Model
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
 
     /**
      * Define inverse relationship to Product's Model

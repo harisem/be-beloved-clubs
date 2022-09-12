@@ -29,7 +29,7 @@
             @endcan
 
             @can('read orders')
-                <li><a class="nav-link" href="credits.html"><i class="fas fa-receipt"></i> <span>Orders</span></a></li>
+                <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('orders.index') }}"><i class="fas fa-receipt"></i> <span>Orders</span></a></li>
             @endcan
 
             @can('read products')

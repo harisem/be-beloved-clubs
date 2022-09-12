@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -43,7 +44,7 @@ class CheckoutController extends Controller
                 'invoice' => $invoiceNumber,
                 'courier' => $this->request->courier,
                 'service' => $this->request->service,
-                'cost_courier' => $this->request->cost,
+                'cost_courier' => $this->request->cost_courier,
                 'weight' => $this->request->weight,
                 'name' => $this->request->name,
                 'phone' => $this->request->phone,
@@ -58,22 +59,22 @@ class CheckoutController extends Controller
             $invoice->customers()->associate($customer);
             $invoice->save();
 
-            foreach (Cart::where('customer_id', auth('api')->user()->id)->get() as $cart) {
+            foreach (Cart::with('warehouses')->where('customer_id', auth('api')->user()->id)->get() as $cart) {
                 $order = new Order([
-                    'image' => $cart->product->frontImg,
+                    'image' => $cart->warehouses->frontImg,
                     'quantity' => $cart->quantity,
                     'price' => $cart->price,
                     'status' => 'pending'
                 ]);
-                $product = Product::find($cart->product_id);
+                $warehouse = Warehouse::find($cart->warehouse_id);
 
                 $order->invoices()->associate($invoice);
-                $order->products()->associate($product);
+                $order->warehouses()->associate($warehouse);
                 $order->save();
             }
 
             $payload = [
-                'transaction_detail' => [
+                'transaction_details' => [
                     'order_id' => $invoice->invoice,
                     'gross_amount' => $invoice->grand_total
                 ],

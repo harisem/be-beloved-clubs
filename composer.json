@@ -15,7 +15,8 @@
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "midtrans/midtrans-php": "^2.4",
-        "spatie/laravel-permission": "^4.2"
+        "spatie/laravel-permission": "^4.2",
+        "steevenz/rajaongkir": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

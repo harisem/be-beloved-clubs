@@ -15,10 +15,14 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-        Customer::create([
-            'name' => 'Customer 1',
+        $customer = Customer::create([
             'email' => 'customer1@mail.com',
             'password' => Hash::make('1customer')
+        ]);
+
+        $customer->profiles()->create([
+            'first_name' => 'Customer',
+            'last_name' => 'Satu',
         ]);
     }
 }

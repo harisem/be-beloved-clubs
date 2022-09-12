@@ -19,4 +19,12 @@ class City extends Model
         'city_id',
         'name',
     ];
+
+    /**
+     * Define relationship to Profile's Model
+     */
+    public function profiles()
+    {
+        return $this->hasMany('App\Models\Profile');
+    }
 }

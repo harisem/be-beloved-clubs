@@ -25,7 +25,7 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
-        $data = $this->cartService->createOrUpdate($request->except('product_id'), $request->only('product_id'), $this->user->id);
+        $data = $this->cartService->createOrUpdate($request->except('warehouse_id'), $request->only('warehouse_id'), $this->user->id);
         return $data;
     }
 

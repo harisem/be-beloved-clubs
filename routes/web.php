@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     
     // Dashboard
-    Route::get('/', function () {
-        return view('index');
-    })->name('dashboard');
+    Route::get('/', 'HomeController@index')->name('dashboard');
+    Route::get('/report', 'HomeController@report')->name('report');
+    // Route::get('/', function () {
+    //     return view('index');
+    // })->name('dashboard');
 
     // Employees Management
     Route::middleware('role:owner')->group(function () {
@@ -62,5 +64,11 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         Route::get('{slider}/edit', 'SliderController@edit')->name('edit')->middleware('permission:update sliders');
         Route::delete('{slider}', 'SliderController@destroy')->name('destroy')->middleware('permission:delete sliders');
         Route::match(['put', 'patch'], '{slider}', 'SliderController@update')->name('update')->middleware('permission:update sliders');
+    });
+
+    // Orders Management
+    Route::prefix('orders')->name('orders.')->group(function () {
+        Route::get('/', 'OrderController@index')->name('index')->middleware('permission:read orders');
+        Route::get('{order}/show', 'OrderController@show')->name('show')->middleware('permission:read orders');
     });
 });

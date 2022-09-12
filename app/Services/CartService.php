@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\CartInterface;
 use App\Interfaces\CustomerInterface;
-use App\Interfaces\ProductInterface;
+use App\Interfaces\WarehouseInterface;
 use App\Traits\ResponseAPI;
 
 class CartService
@@ -12,13 +12,13 @@ class CartService
     use ResponseAPI;
 
     protected $cartInterface;
-    protected $productInterface;
+    protected $warehouseInterface;
     protected $customerInterface;
 
-    public function __construct(CartInterface $cartInterface, ProductInterface $productInterface, CustomerInterface $customerInterface)
+    public function __construct(CartInterface $cartInterface, WarehouseInterface $warehouseInterface, CustomerInterface $customerInterface)
     {
         $this->cartInterface = $cartInterface;
-        $this->productInterface = $productInterface;
+        $this->warehouseInterface = $warehouseInterface;
         $this->customerInterface = $customerInterface;
     }
 
@@ -32,12 +32,13 @@ class CartService
         }
     }
 
-    public function createOrUpdate($request, $product_id, $customer_id)
+    public function createOrUpdate($request, $warehouse_id, $customer_id)
     {
-        $cartItem = $this->cartInterface->getCart($product_id, $customer_id);
+        $cartItem = $this->cartInterface->getCart($warehouse_id, $customer_id);
         if ($cartItem->count()) {
             try {
                 $request = [
+                    'quantity' => $request['quantity'],
                     'price' => $request['price'],
                     'weight' => $request['weight']
                 ];
@@ -50,13 +51,13 @@ class CartService
         } else {
             try {
                 $customer = $this->customerInterface->getCustomerById($customer_id);
-                $product = $this->productInterface->getProductById($product_id);
+                $warehouse = $this->warehouseInterface->getWarehouseById($warehouse_id);
                 $request = [
                     'quantity' => $request['quantity'],
                     'price' => $request['price'],
                     'weight' => $request['weight']
                 ];
-                $data = $this->cartInterface->store($request, $product, $customer);
+                $data = $this->cartInterface->store($request, $warehouse, $customer);
                 return $this->success('Cart\'s created', null, 201);
             } catch (\Exception $e) {
                 return $this->error($e->getMessage(), $e->getCode());
