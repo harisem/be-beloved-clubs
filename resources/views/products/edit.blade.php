@@ -19,7 +19,7 @@
                             <div class="row" style="display: none">
                                 <div class="form-group col-6">
                                     <label for="ready">Ready</label>
-                                    <input type="text" name="ready" id="ready" value="{{ $product->stock ? $product->stock : $product->ready }}" class="form-control @error('ready') is-invalid @enderror" readonly>
+                                    <input type="text" name="ready" id="ready" value="{{ $ready }}" class="form-control @error('ready') is-invalid @enderror" readonly>
                                     @error('ready')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="weight">Weight</label>
-                                    <input type="number" name="weight" id="weight" value="{{ $product->weight }}" class="form-control @error('weight') is-invalid @enderror" readonly>
+                                    <input type="number" name="weight" id="weight" value="{{ $product->warehouses[0]->weight }}" class="form-control @error('weight') is-invalid @enderror" readonly>
                                     @error('weight')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
@@ -50,7 +50,7 @@
                             <div class="row">
                                 <div class="form-group col-6">
                                     <label for="price">Price</label>
-                                    <input type="number" name="price" id="price" value="{{ $product->price ? $product->price : '' }}" class="form-control @error('price') is-invalid @enderror">
+                                    <input type="number" name="price" id="price" value="{{ $product->warehouses[0]->price }}" class="form-control @error('price') is-invalid @enderror">
                                     @error('price')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="discount">Discount</label>
-                                    <input type="number" name="discount" id="discount" value="{{ $product->discount ? $product->discount : '' }}" class="form-control @error('discount') is-invalid @enderror">
+                                    <input type="number" name="discount" id="discount" value="{{ $product->warehouses[0]->discount }}" class="form-control @error('discount') is-invalid @enderror">
                                     @error('discount')
                                         <div class="invalid-feedback" role="alert">
                                             {{ $message }}
@@ -79,7 +79,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <label for="image">Front Image</label>
+                                    <label for="image">Image</label>
                                     <input type="file" name="image" id="image" class="form-control" onchange="readURLImage(this)">
                                     <div class="image-area mt-4"><img id="imageResultFront" src="{{ asset($product->image) }}" alt="{{ $product->image }}" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                 </div>

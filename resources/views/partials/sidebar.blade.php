@@ -8,12 +8,12 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"><a href="{{ route('dashboard') }}" class="nav-link"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+            <li class="{{ Route::is('dashboard') ? 'active' : '' }}"><a href="{{ route('dashboard') }}" class="nav-link"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
             <li class="menu-header">Menu</li>
 
             @can('read catalogs')
-                <li class="{{ request()->routeIs('catalogs.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('catalogs.index') }}"><i class="fas fa-layer-group"></i> <span>Catalogs</span></a></li>
+                <li class="{{ Route::is('catalogs.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('catalogs.index') }}"><i class="fas fa-layer-group"></i> <span>Catalogs</span></a></li>
             @endcan
 
             @can('read customers')
@@ -21,7 +21,7 @@
             @endcan
 
             @can('read users')
-                <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user-tie"></i> <span>Employees</span></a></li>
+                <li class="{{ Route::is('users.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user-tie"></i> <span>Employees</span></a></li>
             @endcan
 
             @can('read invoices')
@@ -29,19 +29,19 @@
             @endcan
 
             @can('read orders')
-                <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('orders.index') }}"><i class="fas fa-receipt"></i> <span>Orders</span></a></li>
+                <li class="{{ Route::is('orders.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('orders.index') }}"><i class="fas fa-receipt"></i> <span>Orders</span></a></li>
             @endcan
 
             @can('read products')
-                <li class="{{ request()->routeIs('products.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('products.index') }}"><i class="fas fa-tshirt"></i> <span>Products</span></a></li>
+                <li class="{{ Route::is('products.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('products.index') }}"><i class="fas fa-tshirt"></i> <span>Products</span></a></li>
             @endcan
 
             @can('read sliders')
-                <li class="{{ request()->routeIs('sliders.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sliders.index') }}"><i class="fas fa-columns"></i> <span>Sliders</span></a></li>
+                <li class="{{ Route::is('sliders.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sliders.index') }}"><i class="fas fa-columns"></i> <span>Sliders</span></a></li>
             @endcan
 
             @can('read warehouses')
-                <li class="{{ request()->routeIs('warehouses.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('warehouses.index') }}"><i class="fas fa-cubes"></i> <span>Warehouses</span></a></li>
+                <li class="{{ Route::is('warehouses.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('warehouses.index') }}"><i class="fas fa-cubes"></i> <span>Warehouses</span></a></li>
             @endcan
             
             <li class="menu-header">User</li>

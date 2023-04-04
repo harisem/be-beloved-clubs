@@ -111,10 +111,12 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::with('warehouses')->where('id', $id)->first();
+        $readyStock = $product->warehouses->sum('ready');
         // dd($product);
 
         return view('products.edit', [
-            'product' => $product
+            'product' => $product,
+            'ready' => $readyStock,
         ]);
     }
 
@@ -132,86 +134,31 @@ class ProductController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:64|unique:products,name,' . $product->id,
             'content' => 'required',
-            'weight' => 'required',
-            'price' => 'required',
             'ready' => 'required',
-            'discount' => 'required',
         ]);
 
-        if ($request->file('frontImg') == null) {
-
-            if ($request->file('backImg') == null) {
-                // There is no frontImage and backImage to update
-                $product->update([
-                    'name' => $request->name,
-                    'slug' => Str::slug($request->name, '-'),
-                    'content' => $request->content,
-                    'weight' => $request->weight,
-                    'price' => $request->price,
-                    'stock' => $request->ready,
-                    'discount' => $request->discount,
-                ]);
-            } else {
-                // There is no frontImage but has backImage to be update
-                Storage::disk('local')->delete('public/products/' . $product->backImg);
-                $image2 = $request->file('backImg');
-                $imageName2 = $image2->hashName();
-                $image2->storeAs('public/products', $imageName2);
-
-                $product->update([
-                    'name' => $request->name,
-                    'slug' => Str::slug($request->name, '-'),
-                    'backImg' => $imageName2,
-                    'content' => $request->content,
-                    'weight' => $request->weight,
-                    'price' => $request->price,
-                    'discount' => $request->discount,
-                ]);
-            }
-
+        if ($request->file('image') == null) {
+            // There is no image to update
+            $product->update([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name, '-'),
+                'content' => $request->content,
+                'stock' => $request->ready,
+            ]);
         } else {
-            
-            if ($request->file('backImg') == null) {
-                // There is frontImage but no backImage to be update
-                Storage::disk('local')->delete('public/products/' . $product->frontImg);
-                $image1 = $request->file('frontImg');
-                $imageName1 = $image1->hashName();
-                $image1->storeAs('public/products', $imageName1);
+            // There is image to update
+            Storage::delete('public/products/' . basename($product->image));
+            $image = $request->file('image');
+            $imageName = $image->hashName();
+            $image->storeAs('public/products', $imageName);
 
-                $product->update([
-                    'name' => $request->name,
-                    'slug' => Str::slug($request->name, '-'),
-                    'frontImg' => $imageName1,
-                    'content' => $request->content,
-                    'weight' => $request->weight,
-                    'price' => $request->price,
-                    'discount' => $request->discount,
-                ]);
-            } else {
-                // There is frontImage and backImage to be update
-                Storage::disk('local')->delete('public/products/' . $product->frontImg);
-                Storage::disk('local')->delete('public/products/' . $product->backImg);
-
-                $image1 = $request->file('frontImg');
-                $image2 = $request->file('backImg');
-
-                $imageName1 = $image1->hashName();
-                $imageName2 = $image2->hashName();
-                
-                $image1->storeAs('public/products', $imageName1);
-                $image2->storeAs('public/products', $imageName2);
-
-                $product->update([
-                    'name' => $request->name,
-                    'slug' => Str::slug($request->name, '-'),
-                    'frontImg' => $imageName1,
-                    'backImg' => $imageName2,
-                    'content' => $request->content,
-                    'weight' => $request->weight,
-                    'price' => $request->price,
-                    'discount' => $request->discount,
-                ]);
-            }
+            $product->update([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name, '-'),
+                'image' => $imageName,
+                'content' => $request->content,
+                'stock' => $request->ready,
+            ]);
         }
 
         return redirect(route('products.index'));
