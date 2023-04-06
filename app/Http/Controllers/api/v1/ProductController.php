@@ -15,9 +15,9 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->productService->getProducts(request()->q);
+        $data = $this->productService->getProducts($request->q);
         return $data;
     }
 

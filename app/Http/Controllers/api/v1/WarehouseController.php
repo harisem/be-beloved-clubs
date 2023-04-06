@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Services\WarehouseService;
+use Illuminate\Http\Request;
 
 class WarehouseController extends Controller
 {
@@ -14,9 +15,9 @@ class WarehouseController extends Controller
         $this->warehouseService = $warehouseService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->warehouseService->getWarehouses(request()->q);
+        $data = $this->warehouseService->getWarehouses($request->q);
         return $data;
     }
     

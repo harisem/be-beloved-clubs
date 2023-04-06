@@ -19,9 +19,9 @@ class RajaOngkirController extends Controller
         return $this->rajaOngkirService->findProvinces();
     }
 
-    public function cities()
+    public function cities(Request $request)
     {
-        return $this->rajaOngkirService->findCities(request()->q);
+        return $this->rajaOngkirService->findCities($request->q);
     }
 
     public function ongkir(Request $request)
