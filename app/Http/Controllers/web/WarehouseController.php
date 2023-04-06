@@ -49,7 +49,7 @@ class WarehouseController extends Controller
             'frontImg' => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'backImg' => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'weight' => 'required|numeric',
-            'stock' => 'nullable|numeric',
+            'stock' => 'nullable',
         ]);
 
         $image1 = $request->file('frontImg');
